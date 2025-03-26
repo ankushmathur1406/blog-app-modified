@@ -43,7 +43,7 @@ function Register() {
     try {
       const { data } = await axios.post(
         //"http://localhost:4001/api/users/register",
-        "https://blog-app-modified.vercel.app/api/users/register",
+        "https://thoughtdrop.onrender.com/api/users/register",
         formData,
         {
           withCredentials: true,
