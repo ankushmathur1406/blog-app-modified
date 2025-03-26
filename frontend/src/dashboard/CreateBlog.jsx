@@ -31,7 +31,8 @@ function CreateBlog() {
     formData.append("blogImage", blogImage);
     try {
       const { data } = await axios.post(
-        "http://localhost:4001/api/blogs/create",
+        //"http://localhost:4001/api/blogs/create",
+        "https://blog-app-modified.vercel.app/api/blogs/create",
         formData,
         {
           withCredentials: true,
