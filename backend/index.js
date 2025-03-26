@@ -25,7 +25,8 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
     //origin:process.env.FRONTEND_URL,
-    origin:"http://localhost:5173",
+   // origin:"http://localhost:5173",
+   origin:"https://blog-app-modified.vercel.app/",
     credentials:true,
     methods: ["GET", "POST", "PUT", "DELETE"],
 }));
