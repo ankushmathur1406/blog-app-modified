@@ -34,7 +34,7 @@ app.use(cookieParser());
 
 app.options("*", cors({
     origin: "https://blog-app-modified.vercel.app",
-    credentials: true,
+    credentials: false,
     methods: ["GET", "POST", "PUT", "DELETE"],
   }));
 
