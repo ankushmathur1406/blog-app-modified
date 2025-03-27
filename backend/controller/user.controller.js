@@ -112,7 +112,7 @@ import {v2 as cloudinary} from "cloudinary";
 //  };
 
 
-export const loginUser = async (request, response) => {
+export const login = async (request, response) => {
     let user = await User.findOne({ username: request.body.username });
     if (!user) {
         return response.status(400).json({ msg: 'Username does not match' });
