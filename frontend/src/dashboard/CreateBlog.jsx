@@ -35,7 +35,7 @@ function CreateBlog() {
         "https://thoughtdrop.onrender.com/api/blogs/create",
         formData,
         {
-          withCredentials: true,
+          Credentials: true,
           headers: {
             "Content-Type": "multipart/form-data",
           },
