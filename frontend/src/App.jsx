@@ -15,7 +15,7 @@ import { useAuth } from "../context/AuthProvider";
 import { Toaster } from "react-hot-toast";
 import UpdateBlog from "./dashboard/UpdateBlog";
 import Detail from "./pages/Detail";
-import Notfound from "./pages/Notfound";
+//import Notfound from "./pages/Notfound";
 function App() {
   const location = useLocation();
   const hideNavbarFooter = ["/dashboard", "/login", "/register"].includes(
@@ -49,8 +49,8 @@ function App() {
         {/* Update page route */}
         <Route exact path="/blog/update/:id" element={<UpdateBlog />} />
 
-        {/*Universal route */}
-        <Route path="*" element={<Notfound />}/>
+        {/* Universal route
+        <Route path="*" element={<Notfound />}/> */}
       </Routes>
       <Toaster />
       {!hideNavbarFooter && <Footer />}
