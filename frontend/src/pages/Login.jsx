@@ -29,7 +29,8 @@ function Login() {
       );
       console.log(data);
       // Store the token in localStorage
-      localStorage.setItem("jwt", data.token); // storing token in localStorage so that if user refreshed the page it will not redirect again in login
+    //  localStorage.setItem("jwt", data.token); // storing token in localStorage so that if user refreshed the page it will not redirect again in login
+      sessionStorage.setItem("jwt", data.token);
       toast.success(data.message || "User Logined successfully", {
         duration: 3000,
       });
