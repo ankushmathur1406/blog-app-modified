@@ -111,15 +111,29 @@ import {v2 as cloudinary} from "cloudinary";
    }
  };
 
- export const logout = (req, res) => {
-   try {
-     res.clearCookie("jwt");
-     res.status(200).json({ message: "User logged out successfully" });
-   } catch (error) {
-     console.log(error);
-     return res.status(500).json({ error: "Internal Server error" });
-   }
- };
+//  export const logout = (req, res) => {
+//    try {
+//      res.clearCookie("jwt");
+//      res.status(200).json({ message: "User logged out successfully" });
+//    } catch (error) {
+//      console.log(error);
+//      return res.status(500).json({ error: "Internal Server error" });
+//    }
+
+   export const logoutUser = async (request, response) => {
+    const token = request.body.token;
+    await Token.deleteOne({ token: token });
+
+    response.status(204).json({ msg: 'logout successfull' });
+}
+
+
+
+
+
+
+
+// };
 
 export const getMyProfile = async (req, res) => {
   const user = await req.user;
