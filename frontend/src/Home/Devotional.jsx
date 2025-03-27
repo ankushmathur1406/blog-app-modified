@@ -13,7 +13,7 @@ function Devotional() {
         <h1 className="text-2xl font-bold mb-6">Devotional</h1>
         <p className="text-center mb-8">
           The concept of gods varies widely across different cultures,
-          religions, and belief systems
+          religions, and belief systems but...
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
           {devotionalBlogs && devotionalBlogs.length > 0 ? (
