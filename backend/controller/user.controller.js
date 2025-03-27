@@ -120,7 +120,7 @@ import {v2 as cloudinary} from "cloudinary";
 //      return res.status(500).json({ error: "Internal Server error" });
 //    }
 
-   export const logoutUser = async (request, response) => {
+   export const logout = async (request, response) => {
     const token = request.body.token;
     await Token.deleteOne({ token: token });
 
