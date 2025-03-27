@@ -74,42 +74,83 @@ import {v2 as cloudinary} from "cloudinary";
 //   }
 // };
 
- export const login = async (req, res) => {
-   const { email, password, role } = req.body;
-   try {
-     if (!email || !password || !role) {
-       return res.status(400).json({ message: "Please fill required fields" });
-     }
-     const user = await User.findOne({ email }).select("+password");
-     //console.log(user);
-     if (!user.password) {
-       return res.status(400).json({ message: "User password is missing" });
-     }
+//  export const login = async (req, res) => {
+//    const { email, password, role } = req.body;
+//    try {
+//      if (!email || !password || !role) {
+//        return res.status(400).json({ message: "Please fill required fields" });
+//      }
+//      const user = await User.findOne({ email }).select("+password");
+//      //console.log(user);
+//      if (!user.password) {
+//        return res.status(400).json({ message: "User password is missing" });
+//      }
 
-     const isMatch = await bcrypt.compare(password, user.password);
-     if (!user || !isMatch) {
-       return res.status(400).json({ message: "Invalid email or password" });
-     }
-     if (user.role !== role) {
-       return res.status(400).json({ message: `Given role ${role} not found` });
-     }
-     let token = await createTokenAndSaveCookies(user._id, res);
-     //console.log("Login: ", token);
-     res.status(200).json({
-       message: "User logged in successfully",
-       user: {
-         _id: user._id,
-         name: user.name,
-         email: user.email,
-         role: user.role,
-       },
-       token: token,
-     });
-   } catch (error) {
-     console.log(error);
-     return res.status(500).json({ error: "Internal Server error" });
-   }
- };
+//      const isMatch = await bcrypt.compare(password, user.password);
+//      if (!user || !isMatch) {
+//        return res.status(400).json({ message: "Invalid email or password" });
+//      }
+//      if (user.role !== role) {
+//        return res.status(400).json({ message: `Given role ${role} not found` });
+//      }
+//      let token = await createTokenAndSaveCookies(user._id, res);
+//      //console.log("Login: ", token);
+//      res.status(200).json({
+//        message: "User logged in successfully",
+//        user: {
+//          _id: user._id,
+//          name: user.name,
+//          email: user.email,
+//          role: user.role,
+//        },
+//        token: token,
+//      });
+//    } catch (error) {
+//      console.log(error);
+//      return res.status(500).json({ error: "Internal Server error" });
+//    }
+//  };
+
+
+export const loginUser = async (request, response) => {
+    let user = await User.findOne({ username: request.body.username });
+    if (!user) {
+        return response.status(400).json({ msg: 'Username does not match' });
+    }
+
+    try {
+        let match = await bcrypt.compare(request.body.password, user.password);
+        if (match) {
+            const accessToken = jwt.sign(user.toJSON(), process.env.CLOUD_API_SECRET_KEY, { expiresIn: '15m'});
+            const refreshToken = jwt.sign(user.toJSON(), process.env.JWT_SECRET_KEY);
+            
+            const newToken = new Token({ token: refreshToken });
+            await newToken.save();
+        
+            response.status(200).json({ accessToken: accessToken, refreshToken: refreshToken,name: user.name, username: user.username });
+        
+        } else {
+            response.status(400).json({ msg: 'Password does not match' })
+        }
+    } catch (error) {
+        response.status(500).json({ msg: 'error while login the user' })
+    }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //  export const logout = (req, res) => {
 //    try {
