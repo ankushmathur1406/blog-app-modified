@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import {} from "../models/user.model.js";
+//import {} from "../models/user.model.js";
 import { User } from "../models/user.model.js";
 
 const createTokenAndSaveCookies = async (userId, res) => {

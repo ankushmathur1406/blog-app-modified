@@ -165,11 +165,21 @@ export const register = async (req,res) =>{
       const newUser = new User({email,name,password:hashedPassword,phone,education,role,photo:{
         public_id:cloudinaryResponse.public_id,
         url:cloudinaryResponse.url,
-      }});
+      },});
       await newUser.save()
       if(newUser){
          const token = await createTokenAndSaveCookies(newUser._id,res)
-          res.status(201).json({message:"User registered successfully",newUser,token:token});
+          res.status(201).json({message:"User registered successfully",
+            user:{
+              id: newUser._id,
+              name: newUser.name,
+              email: newUser.email,
+              role: newUser.role,
+              education: newUser.education,
+              avatar: newUser.avatar,
+              createdOn: newUser.createdOn,
+            },
+            token:token});
       }
     }
     catch (error) {
