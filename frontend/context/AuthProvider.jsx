@@ -36,7 +36,7 @@ export const AuthProvider = ({ children }) => {
     const fetchBlogs = async () => {
       try {
         const { data } = await axios.get(
-          "https://blog-app-modified.vercel.app//api/blogs/all-blogs",
+          "https://blog-app-modified.vercel.app/api/blogs/all-blogs",
           { withCredentials: true }
         );
         console.log(data);
