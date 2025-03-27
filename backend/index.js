@@ -26,7 +26,7 @@ app.use(cookieParser());
 app.use(cors({
     //origin:process.env.FRONTEND_URL,
    // origin:"http://localhost:5173",
-   origin:"https://blog-app-modified.vercel.app",
+   origin:"https://blog-app-modified-39f25wc9w-ankushs-projects-144927b9.vercel.app",
   // origin:"*",
     credentials:true,
     methods: ["GET", "POST", "PUT", "DELETE"],
