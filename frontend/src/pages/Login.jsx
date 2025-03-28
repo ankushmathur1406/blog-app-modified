@@ -19,7 +19,7 @@ function Login() {
       const { data } = await axios.post(
        // "http://localhost:4001/api/users/login",
        "https://thoughtdrop.onrender.com/api/users/login",
-        { email, password, role },
+        { role,email, password},
         {
           withCredentials: true,
           headers: {
@@ -29,8 +29,8 @@ function Login() {
       );
       console.log(data);
       // Store the token in localStorage
-    //  localStorage.setItem("jwt", data.token); // storing token in localStorage so that if user refreshed the page it will not redirect again in login
-      sessionStorage.setItem("jwt", data.token);
+     localStorage.setItem("jwt", data.token); // storing token in localStorage so that if user refreshed the page it will not redirect again in login
+     // sessionStorage.setItem("jwt", data.token);
       toast.success(data.message || "User Logined successfully", {
         duration: 3000,
       });
@@ -43,12 +43,12 @@ function Login() {
     } catch (error) {
         alert("hey");
       console.log(error);
-      toast.error(
-        error.response.data.message || "Please fill the required fields",
-        {
-          duration: 3000,
-        }
-      );
+      // toast.error(
+      //   error.response.data.message || "Please fill the required fields",
+      //   {
+      //     duration: 3000,
+      //   }
+      // );
     }
   };
 

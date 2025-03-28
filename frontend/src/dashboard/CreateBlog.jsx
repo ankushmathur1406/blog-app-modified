@@ -31,11 +31,11 @@ function CreateBlog() {
     formData.append("blogImage", blogImage);
     try {
       const { data } = await axios.post(
-        //"http://localhost:4001/api/blogs/create",
-        "https://thoughtdrop.onrender.com/api/blogs/create",
+       // "http://localhost:4001/api/blogs/create",
+       "https://thoughtdrop.onrender.com/api/blogs/create",
         formData,
         {
-          Credentials: true,
+          withCredentials: true,
           headers: {
             "Content-Type": "multipart/form-data",
           },

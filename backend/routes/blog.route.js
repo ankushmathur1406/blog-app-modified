@@ -1,18 +1,15 @@
+
 import express from "express";
+
 import {
   createBlog,
-//   deleteBlog,
-//   getAllBlogs,
-//   getMyBlogs,
-//   getSingleBlogs,
-//   updateBlog,
+  deleteBlog,
+  getAllBlogs,
+  getMyBlogs,
+  getSingleBlogs,
+  updateBlog,
 } from "../controller/blog.controller.js";
-import {isAdmin,isAuthenticated } from "../middleware/authUser.js";
-import { deleteBlog } from "../controller/blog.controller.js";
-import { getAllBlogs } from "../controller/blog.controller.js";
-import { getSingleBlogs } from "../controller/blog.controller.js";
-import { getMyBlogs } from "../controller/blog.controller.js";
-import { updateBlog } from "../controller/blog.controller.js";
+import { isAdmin, isAuthenticated } from "../middleware/authUser.js";
 
 const router = express.Router();
 

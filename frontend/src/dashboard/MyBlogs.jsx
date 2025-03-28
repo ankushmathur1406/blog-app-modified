@@ -9,9 +9,9 @@ function MyBlogs() {
     const fetchMyBlogs = async () => {
       try {
         const { data } = await axios.get(
-          //"http://localhost:4001/api/blogs/my-blog",
+         // "http://localhost:4001/api/blogs/my-blog",
           "https://thoughtdrop.onrender.com/api/blogs/my-blog",
-         // { withCredentials: true }
+          { withCredentials: true }
         );
         console.log(data);
         setMyBlogs(data);
@@ -24,7 +24,7 @@ function MyBlogs() {
 
   const handleDelete = async (id) => {
     await axios
-     // .delete(`http://localhost:4001/api/blogs/delete/${id}`, 
+    // .delete(`http://localhost:4001/api/blogs/delete/${id}`, 
         .delete(`https://thoughtdrop.onrender.com/api/blogs/delete/${id}`,
         {
         withCredentials: true,

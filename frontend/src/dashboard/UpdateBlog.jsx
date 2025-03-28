@@ -29,7 +29,7 @@ function UpdateBlog() {
     const fetchBlog = async () => {
       try {
         const { data } = await axios.get(
-        //  `http://localhost:4001/api/blogs/single-blog/${id}`,
+        // `http://localhost:4001/api/blogs/single-blog/${id}`,
           `https://thoughtdrop.onrender.com/api/blogs/single-blog/${id}`,
 
           {
@@ -62,8 +62,8 @@ function UpdateBlog() {
     formData.append("blogImage", blogImage);
     try {
       const { data } = await axios.put(
-        //`http://localhost:4001/api/blogs/update/${id}`,
-        `https://thoughtdrop.onrender.com/api/blogs/update/${id}`,
+       // `http://localhost:4001/api/blogs/update/${id}`,
+       `https://thoughtdrop.onrender.com/api/blogs/update/${id}`,
         formData,
         {
           withCredentials: true,

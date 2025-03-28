@@ -65,6 +65,7 @@ export const deleteBlog = async (req, res) => {
 
 export const getAllBlogs = async (req, res) => {
   const allBlogs = await Blog.find();
+  console.log(allBlogs);
   res.status(200).json(allBlogs);
 };
 
@@ -91,7 +92,7 @@ export const updateBlog = async (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ message: "Invalid Blog id" });
   }
-  const updatedBlog = await Blog.findByIdAndUpdate(id, req.body, req.photo,{ new: true });
+  const updatedBlog = await Blog.findByIdAndUpdate(id, req.body,{ new: true });
   if (!updatedBlog) {
     return res.status(404).json({ message: "Blog not found" });
   }
