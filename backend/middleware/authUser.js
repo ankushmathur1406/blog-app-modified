@@ -1,5 +1,8 @@
 import { User } from "../models/user.model.js";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 //Authentication
 export const isAuthenticated = async (req, res, next) => {
