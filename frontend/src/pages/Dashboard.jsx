@@ -26,9 +26,8 @@ function Dashboard() {
           <CreateBlog />
         ) : component === "Update Blog" ? (
           <UpdateBlog />
-        ) : (
+        ) : component === "My Blogs"}
           <MyBlogs />
-        )}
       </div>
     </div>
   );
