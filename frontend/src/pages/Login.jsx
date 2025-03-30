@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 //import { useAuth } from "../context/AuthProvider";
 import { useAuth } from "../../context/AuthProvider";
-function Login() {
+function login() {
   const { isAuthenticated, setIsAuthenticated, setProfile } = useAuth();
 
   const navigateTo = useNavigate();
@@ -110,4 +110,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default login;
