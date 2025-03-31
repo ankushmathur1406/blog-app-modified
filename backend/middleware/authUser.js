@@ -8,8 +8,9 @@ dotenv.config();
 //Authentication
 export const isAuthenticated = async (req, res, next) => {
   try {
-    let token = localStorage.getItem("jwt");
-  //  const token = req.cookies.jwt;
+    //let token = localStorage.getItem("jwt");
+    const token = req.cookies.jwt;
+    
     console.log("Middleware : ", token);
     if (!token) {
       console.log("hey");

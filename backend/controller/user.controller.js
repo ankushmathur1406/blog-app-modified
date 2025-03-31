@@ -76,41 +76,154 @@ export const register = async (req, res) => {
   }
 };
 
-export const login = async (req, res) => {
-  const { email, password, role } = req.body;
-  try {
-    if (!email || !password || !role) {
-      return res.status(400).json({ message: "Please fill required fields" });
-    }
-    const user = await User.findOne({ email }).select("+password");
-    console.log(user);
-    if (!user.password) {
-      return res.status(400).json({ message: "User password is missing" });
-    }
+export const login = async (request, response) => {
+   const { email, password, role } = req.body;
+  // try {
+  //   if (!email || !password || !role) {
+  //     return res.status(400).json({ message: "Please fill required fields" });
+  //   }
+  //   const user = await User.findOne({ email }).select("+password");
+  //   console.log(user);
+  //   if (!user.password) {
+  //     return res.status(400).json({ message: "User password is missing" });
+  //   }
 
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!user || !isMatch) {
-      return res.status(400).json({ message: "Invalid email or password" });
-    }
-    if (user.role !== role) {
-      return res.status(400).json({ message: `Given role ${role} not found` });
-    }
-    let token = await createTokenAndSaveCookies(user._id, res);
-    console.log("Login: ", token);
-    res.status(200).json({
-      message: "User logged in successfully",
-      user: {
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
-      },
-      token: token,
-    });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({ error: "Internal Server error" });
+  //   const isMatch = await bcrypt.compare(password, user.password);
+  //   if (!user || !isMatch) {
+  //     return res.status(400).json({ message: "Invalid email or password" });
+  //   }
+  //   if (user.role !== role) {
+  //     return res.status(400).json({ message: `Given role ${role} not found` });
+  //   }
+  //   let token = await createTokenAndSaveCookies(user._id, res);
+  //   console.log("Login: ", token);
+  //   res.status(200).json({
+  //     message: "User logged in successfully",
+  //     user: {
+  //       _id: user._id,
+  //       name: user.name,
+  //       email: user.email,
+  //       role: user.role,
+  //     },
+  //     token: token,
+  //   });
+  // } catch (error) {
+  //   console.log(error);
+  //   return res.status(500).json({ error: "Internal Server error" });
+  // }
+
+
+
+  let user = await User.findOne({ username:email});
+  if (!user) {
+      return response.status(400).json({ msg: 'email does not match' });
   }
+
+  try {
+
+        if (!email || !password || !role) {
+         return res.status(400).json({ message: "Please fill required fields" });
+        }
+
+      let match = await bcrypt.compare(password,user.password);
+      if (match) {
+          const accessToken = jwt.sign(user.toJSON(), process.env.JWT_SECRET_KEY, { expiresIn: '15m'});
+          const refreshToken = jwt.sign(user.toJSON(), process.env.JWT_REFRESH_KEY);
+          
+          const newToken = new Token({ token: refreshToken });
+          await newToken.save();
+      
+          response.status(200).json({ accessToken: accessToken, refreshToken: refreshToken,email:user.email,role:user.role});
+      
+      } else {
+          response.status(400).json({ msg: 'Password does not match' })
+      }
+  } catch (error) {
+      response.status(500).json({ msg: 'error while login the user' })
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 };
 
 export const logout = (req, res) => {
