@@ -76,8 +76,8 @@ export const register = async (req, res) => {
   }
 };
 
-export const login = async (request, response) => {
-  const { email, password, role } = request.body;
+export const login = async (req, res) => {
+  const { email, password, role } = req.body;
   try {
     if (!email || !password || !role) {
       return res.status(400).json({ message: "Please fill required fields" });
