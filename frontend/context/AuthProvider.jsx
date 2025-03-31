@@ -37,8 +37,8 @@ export const AuthProvider = ({ children }) => {
     const fetchBlogs = async () => {
       try {
         const { data } = await axios.get(
-        //  "https://thoughtdrop.onrender.com/api/blogs/all-blogs",
-             "http://localhost:4001/api/blogs/all-blogs",
+         "https://thoughtdrop.onrender.com/api/blogs/all-blogs",
+         //    "http://localhost:4001/api/blogs/all-blogs",
           { withCredentials: true }
         );
         console.log(data);
