@@ -119,3 +119,103 @@ exports.parseEmployees = (filePath) => {
 
 
 %%%
+import FileUploadForm from './components/FileUploadForm';
+import ResultsTable from './components/ResultsTable';
+import { useState } from 'react';
+
+function App() {
+  const [results, setResults] = useState([]);
+
+  return (
+    <div style={{ padding: '2rem' }}>
+      <h1>📋 Event Assignment Portal</h1>
+      <FileUploadForm setResults={setResults} />
+      {results.length > 0 && <ResultsTable results={results} />}
+    </div>
+  );
+}
+
+export default App;
+
+%%%%%
+import { useState } from 'react';
+import axios from 'axios';
+
+function FileUploadForm({ setResults }) {
+  const [eventsFile, setEventsFile] = useState(null);
+  const [employeesFile, setEmployeesFile] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!eventsFile || !employeesFile) return;
+
+    const formData = new FormData();
+    formData.append('events', eventsFile);
+    formData.append('employees', employeesFile);
+
+    setLoading(true);
+    try {
+      const res = await axios.post('http://localhost:4000/process', formData);
+      setResults(res.data.results);
+    } catch (err) {
+      alert("❌ Error processing files");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit} style={{ marginBottom: '2rem' }}>
+      <div>
+        <label>Events File:</label>
+        <input type="file" accept=".xlsx" onChange={e => setEventsFile(e.target.files[0])} />
+      </div>
+      <div>
+        <label>Employees File:</label>
+        <input type="file" accept=".xlsx" onChange={e => setEmployeesFile(e.target.files[0])} />
+      </div>
+      <button type="submit" disabled={loading}>Submit</button>
+    </form>
+  );
+}
+
+export default FileUploadForm;
+
+
+
+%%%
+function ResultsTable({ results }) {
+  return (
+    <div>
+      <h2>✅ Assignments</h2>
+      <table border="1" cellPadding="6">
+        <thead>
+          <tr>
+            <th>Event</th>
+            <th>Date</th>
+            <th>Start</th>
+            <th>End</th>
+            <th>Assigned To</th>
+          </tr>
+        </thead>
+        <tbody>
+          {results.map((r, i) => (
+            <tr key={i}>
+              <td>{r.Event}</td>
+              <td>{r.Date}</td>
+              <td>{r.Start}</td>
+              <td>{r.End}</td>
+              <td>{r.AssignedTo}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+export default ResultsTable;
+
+%%%
+
